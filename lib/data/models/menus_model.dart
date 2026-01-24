@@ -5,8 +5,16 @@ class Menus {
   final List<Food> foods;
   final List<Drink> drinks;
 
-  Menus({
-    required this.foods,
-    required this.drinks,
-  });
+  Menus({required this.foods, required this.drinks});
+
+  factory Menus.fromJson(Map<String, dynamic> json) {
+    return Menus(
+      foods: (json['foods'] as List)
+          .map((element) => Food.fromJson(element))
+          .toList(),
+      drinks: (json['drinks'] as List)
+          .map((element) => Drink.fromJson(element))
+          .toList(),
+    );
+  }
 }

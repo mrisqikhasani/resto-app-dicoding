@@ -4,13 +4,13 @@ class RestaurantListResponse {
   final bool error;
   final String message;
   final int count;
-  final List<RestaurantItem> restaurant;
+  final List<RestaurantItem> restaurants;
 
   RestaurantListResponse({
     required this.error,
     required this.message,
     required this.count,
-    required this.restaurant,
+    required this.restaurants,
   });
 
   factory RestaurantListResponse.fromJson(Map<String, dynamic> json) {
@@ -18,7 +18,7 @@ class RestaurantListResponse {
       error: json['error'],
       message: json['message'],
       count: json['count'],
-      restaurant: (json['restaurant'] as List?)
+      restaurants: (json['restaurant'] as List?)
           ?.map((e) => RestaurantItem.fromJson(e))
           .toList() ?? <RestaurantItem>[],
     );

@@ -2,7 +2,7 @@ import 'package:resto_app_dicoding/data/models/category_model.dart';
 import 'package:resto_app_dicoding/data/models/menus_model.dart';
 import 'package:resto_app_dicoding/data/models/review_model.dart';
 
-class RestaurantsDetail {
+class RestaurantDetail {
   final String id;
   final String name;
   final String description;
@@ -14,7 +14,7 @@ class RestaurantsDetail {
   final Menus menus;
   final List<Review> customerReviews;
 
-  RestaurantsDetail({
+  RestaurantDetail({
     required this.id,
     required this.name,
     required this.description,
@@ -27,8 +27,8 @@ class RestaurantsDetail {
     required this.customerReviews,
   });
 
-  factory RestaurantsDetail.fromJson(Map<String, dynamic> json) {
-    return RestaurantsDetail(
+  factory RestaurantDetail.fromJson(Map<String, dynamic> json) {
+    return RestaurantDetail(
       id: json['id'],
       name: json['name'],
       description: json['description'],

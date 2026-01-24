@@ -3,7 +3,7 @@ import 'package:resto_app_dicoding/data/models/restaurant_detail_model.dart';
 class RestaurantDetailResponse {
   final bool error;
   final String message;
-  final RestaurantsDetail restaurant;
+  final RestaurantDetail restaurant;
 
   RestaurantDetailResponse({
     required this.error,

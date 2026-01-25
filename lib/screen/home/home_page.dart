@@ -5,8 +5,23 @@ import 'package:resto_app_dicoding/provider/home/restaurant_list_provider.dart';
 import 'package:resto_app_dicoding/screen/home/widgets/restaurant_list_view.dart';
 import 'package:resto_app_dicoding/screen/widgets/error_state_widget.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+
+    Future.microtask((){
+      context.read<RestaurantListProvider>().fetchRestaurantList();
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {

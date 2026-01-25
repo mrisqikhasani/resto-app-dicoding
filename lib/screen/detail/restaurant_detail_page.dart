@@ -9,10 +9,26 @@ import 'package:resto_app_dicoding/style/restaurant_color.dart';
 import 'package:resto_app_dicoding/style/typography/restaurant_text_style.dart';
 import 'package:resto_app_dicoding/utils/image_helper.dart';
 
-class RestaurantDetailPage extends StatelessWidget {
+class RestaurantDetailPage extends StatefulWidget {
   final String restaurantId;
 
   const RestaurantDetailPage({super.key, required this.restaurantId});
+
+  @override
+  State<RestaurantDetailPage> createState() => _RestaurantDetailPageState();
+}
+
+class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
+  @override
+  void initState() {
+    super.initState();
+
+    Future.microtask(() {
+      context.read<RestaurantDetailProvider>().fetchRestaurantDetail(
+        widget.restaurantId,
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +41,11 @@ class RestaurantDetailPage extends StatelessWidget {
             case ResultState.error:
               return ErrorStateWidget(
                 message: value.message,
-                onRetry: () => value.fetchRestaurantDetail(),
+                onRetry: () => value.fetchRestaurantDetail(widget.restaurantId),
               );
             case ResultState.success:
-            final restaurant = value.restaurant;
-            return CustomScrollView(
+              final restaurant = value.restaurant;
+              return CustomScrollView(
                 slivers: [
                   /// APP BAR IMAGE
                   SliverAppBar(
@@ -44,7 +60,7 @@ class RestaurantDetailPage extends StatelessWidget {
                         ),
                       ),
                       background: Hero(
-                        tag: restaurant!.pictureId,
+                        tag: restaurant.pictureId,
                         child: Image.network(
                           ImageHelper.large(restaurant.pictureId),
                           fit: BoxFit.cover,
@@ -62,9 +78,7 @@ class RestaurantDetailPage extends StatelessWidget {
                         children: [
                           RestaurantInfoSection(restaurant: restaurant),
                           const SizedBox(height: 16),
-                          RestaurantDescriptionSection(
-                            restaurant: restaurant,
-                          ),
+                          RestaurantDescriptionSection(restaurant: restaurant),
                           const SizedBox(height: 24),
                           // _MenuSection(
                           //   foods: restaurant.menus.foods,

@@ -6,30 +6,25 @@ import 'package:resto_app_dicoding/utils/image_helper.dart';
 
 class RestaurantCard extends StatelessWidget {
   final RestaurantItem restaurant;
+  final Function() onTap;
 
   const RestaurantCard({
     super.key,
     required this.restaurant,
+    required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-
     return InkWell(
       borderRadius: BorderRadius.circular(16),
-      onTap: () {
-        Navigator.pushNamed(
-          context,
-          '/detail',
-          arguments: restaurant.id,
-        );
-      },
+      splashColor: RestaurantColor.primary.withValues(alpha: 0.1),
+      highlightColor: Colors.transparent,
+      onTap: onTap,
       child: Card(
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         elevation: 4,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         child: Padding(
           padding: const EdgeInsets.all(14),
           child: Row(
@@ -52,10 +47,7 @@ class RestaurantCard extends StatelessWidget {
                       fit: BoxFit.cover,
                       errorBuilder: (_, __, ___) => Container(
                         color: RestaurantColor.primary,
-                        child: const Icon(
-                          Icons.broken_image,
-                          size: 40,
-                        ),
+                        child: const Icon(Icons.broken_image, size: 40),
                       ),
                     ),
                   ),
@@ -74,7 +66,7 @@ class RestaurantCard extends StatelessWidget {
                       restaurant.name,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: RestaurantTextStyle.titleMedium
+                      style: RestaurantTextStyle.titleMedium,
                     ),
 
                     const SizedBox(height: 6),
@@ -92,10 +84,7 @@ class RestaurantCard extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            const Icon(
-                              Icons.location_on,
-                              size: 14,
-                            ),
+                            const Icon(Icons.location_on, size: 14),
                             const SizedBox(width: 4),
                             Text(
                               restaurant.city,

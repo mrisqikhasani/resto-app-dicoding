@@ -18,7 +18,7 @@ class RestaurantListResponse {
       error: json['error'],
       message: json['message'],
       count: json['count'],
-      restaurants: (json['restaurant'] as List?)
+      restaurants: (json['restaurants'] as List?)
           ?.map((e) => RestaurantItem.fromJson(e))
           .toList() ?? <RestaurantItem>[],
     );

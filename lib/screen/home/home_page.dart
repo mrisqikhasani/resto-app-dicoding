@@ -11,7 +11,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Restaurant List"), centerTitle: true),
+      appBar: AppBar(title: const Text("Restaurant List",), centerTitle: true),
       body: Consumer<RestaurantListProvider>(
         builder: (context, value, child) {
           switch (value.state) {

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:resto_app_dicoding/data/models/restaurant_item_model.dart';
+import 'package:resto_app_dicoding/style/restaurant_color.dart';
+import 'package:resto_app_dicoding/style/typography/restaurant_text_style.dart';
 import 'package:resto_app_dicoding/utils/image_helper.dart';
 
 class RestaurantCard extends StatelessWidget {
@@ -12,7 +14,6 @@ class RestaurantCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
 
     return InkWell(
       borderRadius: BorderRadius.circular(16),
@@ -50,7 +51,7 @@ class RestaurantCard extends StatelessWidget {
                       ImageHelper.small(restaurant.pictureId),
                       fit: BoxFit.cover,
                       errorBuilder: (_, __, ___) => Container(
-                        color: Colors.grey.shade300,
+                        color: RestaurantColor.primary,
                         child: const Icon(
                           Icons.broken_image,
                           size: 40,
@@ -73,27 +74,22 @@ class RestaurantCard extends StatelessWidget {
                       restaurant.name,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
+                      style: RestaurantTextStyle.titleMedium
                     ),
 
                     const SizedBox(height: 6),
 
-                    /// DESCRIPTION (ELLIPSIS)
                     Text(
                       restaurant.description,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: textTheme.bodySmall,
+                      style: RestaurantTextStyle.bodySmall,
                     ),
 
                     const SizedBox(height: 10),
 
-                    /// INFO ROW
                     Row(
                       children: [
-                        /// CITY
                         Row(
                           children: [
                             const Icon(
@@ -103,7 +99,7 @@ class RestaurantCard extends StatelessWidget {
                             const SizedBox(width: 4),
                             Text(
                               restaurant.city,
-                              style: textTheme.bodySmall,
+                              style: RestaurantTextStyle.bodyMedium,
                             ),
                           ],
                         ),
@@ -116,12 +112,12 @@ class RestaurantCard extends StatelessWidget {
                             const Icon(
                               Icons.star,
                               size: 14,
-                              color: Colors.amber,
+                              color: RestaurantColor.rating,
                             ),
                             const SizedBox(width: 4),
                             Text(
                               restaurant.rating.toString(),
-                              style: textTheme.bodySmall,
+                              style: RestaurantTextStyle.bodyMedium,
                             ),
                           ],
                         ),

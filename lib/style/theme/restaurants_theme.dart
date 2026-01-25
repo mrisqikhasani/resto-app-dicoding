@@ -1,35 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:resto_app_dicoding/style/restaurant_color.dart';
 
 class RestaurantsTheme {
 
-  static AppBarTheme get _appBarTheme {
-    return AppBarTheme(
-      shape: const BeveledRectangleBorder(
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(14),
-          bottomRight: Radius.circular(14),
-        )
-      )
-    );
-  }
-
-  static ThemeData get lightTheme {
-    return ThemeData(
-      colorSchemeSeed: Colors.orange,
+  static ThemeData lightTheme = ThemeData(
+    useMaterial3: true,
+    fontFamily: 'Poppins',
+    scaffoldBackgroundColor: RestaurantColor.backgroundLight,
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: RestaurantColor.primary,
       brightness: Brightness.light,
-      // textTheme: _textTheme,
-      useMaterial3: true,
-      appBarTheme: _appBarTheme,
-    );
-  }
+    ),
+    appBarTheme: const AppBarTheme(
+      backgroundColor: RestaurantColor.primary,
+      foregroundColor: Colors.white,
+    ),
+    cardTheme: CardThemeData(
+      color: Colors.white,
+      elevation: 2,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+    ),
+  );
 
-  static ThemeData get darkTheme {
-    return ThemeData(
-      colorSchemeSeed: Colors.deepOrange,
+  static ThemeData darkTheme = ThemeData(
+    useMaterial3: true,
+    fontFamily: 'Poppins',
+    scaffoldBackgroundColor: RestaurantColor.backgroundDark,
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: RestaurantColor.primary,
       brightness: Brightness.dark,
-      useMaterial3: true,
-      appBarTheme: _appBarTheme,
-    );
-  }
+    ),
+    appBarTheme: const AppBarTheme(
+      backgroundColor: RestaurantColor.backgroundDark,
+      foregroundColor: Colors.white,
+    ),
+  );
 
 }

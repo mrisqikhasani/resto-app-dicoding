@@ -8,7 +8,7 @@ class RestaurantMenuSection extends StatelessWidget {
   final List<Food> foods;
   final List<Drink> drinks;
 
-  const RestaurantMenuSection({required this.foods, required this.drinks});
+  const RestaurantMenuSection({super.key, required this.foods, required this.drinks});
 
   @override
   Widget build(BuildContext context) {

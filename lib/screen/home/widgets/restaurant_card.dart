@@ -16,107 +16,89 @@ class RestaurantCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      borderRadius: BorderRadius.circular(16),
-      splashColor: RestaurantColor.primary.withValues(alpha: 0.1),
-      highlightColor: Colors.transparent,
+    return GestureDetector(
       onTap: onTap,
-      child: Card(
-        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-        elevation: 4,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        child: Padding(
-          padding: const EdgeInsets.all(14),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              /// IMAGE
-              ConstrainedBox(
-                constraints: const BoxConstraints(
-                  minWidth: 110,
-                  maxWidth: 110,
-                  minHeight: 110,
-                  maxHeight: 110,
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(14),
-                  child: Hero(
-                    tag: restaurant.pictureId,
-                    child: Image.network(
-                      ImageHelper.small(restaurant.pictureId),
-                      fit: BoxFit.cover,
-                      errorBuilder: (_, __, ___) => Container(
-                        color: RestaurantColor.primary,
-                        child: const Icon(Icons.broken_image, size: 40),
-                      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ConstrainedBox(
+              constraints: const BoxConstraints(
+                maxHeight: 120,
+                minHeight: 90,
+                maxWidth: 120,
+                minWidth: 120,
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Hero(
+                  tag: restaurant.pictureId,
+                  child: Image.network(
+                    ImageHelper.small(restaurant.pictureId),
+                    fit: BoxFit.cover,
+                    errorBuilder: (_, __, ___) => Container(
+                      color: RestaurantColor.primary.withValues(alpha: 0.2),
+                      child: const Icon(Icons.broken_image),
                     ),
                   ),
                 ),
               ),
+            ),
 
-              const SizedBox(width: 14),
+            const SizedBox(width: 15),
 
-              /// CONTENT
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    /// NAME
-                    Text(
-                      restaurant.name,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: RestaurantTextStyle.titleMedium,
-                    ),
+            /// CONTENT
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    restaurant.name,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: RestaurantTextStyle.titleMedium,
+                  ),
 
-                    const SizedBox(height: 6),
+                  const SizedBox(height: 6),
 
-                    Text(
-                      restaurant.description,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: RestaurantTextStyle.bodySmall,
-                    ),
-
-                    const SizedBox(height: 10),
-
-                    Row(
-                      children: [
-                        Row(
-                          children: [
-                            const Icon(Icons.location_on, size: 14),
-                            const SizedBox(width: 4),
-                            Text(
-                              restaurant.city,
-                              style: RestaurantTextStyle.bodyMedium,
-                            ),
-                          ],
+                  Row(
+                    children: [
+                      const Icon(Icons.location_on, size: 16),
+                      const SizedBox(width: 4),
+                      Expanded(
+                        child: Text(
+                          restaurant.city,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: RestaurantTextStyle.bodyMedium,
                         ),
+                      ),
+                    ],
+                  ),
 
-                        const SizedBox(width: 12),
+                  const SizedBox(height: 6),
 
-                        /// RATING
-                        Row(
-                          children: [
-                            const Icon(
-                              Icons.star,
-                              size: 14,
-                              color: RestaurantColor.rating,
-                            ),
-                            const SizedBox(width: 4),
-                            Text(
-                              restaurant.rating.toString(),
-                              style: RestaurantTextStyle.bodyMedium,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                  /// RATING
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.star,
+                        size: 16,
+                        color: RestaurantColor.rating,
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        restaurant.rating.toStringAsFixed(1),
+                        style: RestaurantTextStyle.bodyMedium,
+                      ),
+                    ],
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

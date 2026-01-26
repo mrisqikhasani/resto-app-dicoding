@@ -4,6 +4,7 @@ import 'package:resto_app_dicoding/core/state/result_state.dart';
 import 'package:resto_app_dicoding/provider/detail/restaurant_detail_provider.dart';
 import 'package:resto_app_dicoding/screen/detail/widgets/restaurant_description_section.dart';
 import 'package:resto_app_dicoding/screen/detail/widgets/restaurant_info_section.dart';
+import 'package:resto_app_dicoding/screen/detail/widgets/restaurant_menu_section.dart';
 import 'package:resto_app_dicoding/screen/widgets/error_state_widget.dart';
 import 'package:resto_app_dicoding/style/restaurant_color.dart';
 import 'package:resto_app_dicoding/style/typography/restaurant_text_style.dart';
@@ -80,10 +81,10 @@ class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
                           const SizedBox(height: 16),
                           RestaurantDescriptionSection(restaurant: restaurant),
                           const SizedBox(height: 24),
-                          // _MenuSection(
-                          //   foods: restaurant.menus.foods,
-                          //   drinks: restaurant.menus.drinks,
-                          // ),
+                          RestaurantMenuSection(
+                            foods: restaurant.menus.foods,
+                            drinks: restaurant.menus.drinks,
+                          ),
                           const SizedBox(height: 24),
                           // _ReviewSection(
                           //   reviews: restaurant.customerReviews,

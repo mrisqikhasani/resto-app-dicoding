@@ -5,9 +5,11 @@ import 'package:resto_app_dicoding/data/api/api_service.dart';
 import 'package:resto_app_dicoding/data/repositories/restaurant_repository.dart';
 import 'package:resto_app_dicoding/provider/detail/restaurant_detail_provider.dart';
 import 'package:resto_app_dicoding/provider/home/restaurant_list_provider.dart';
+import 'package:resto_app_dicoding/provider/search/restaurant_search_provider.dart';
 import 'package:resto_app_dicoding/provider/theme/theme_provider.dart';
 import 'package:resto_app_dicoding/screen/detail/restaurant_detail_page.dart';
 import 'package:resto_app_dicoding/screen/home/home_page.dart';
+import 'package:resto_app_dicoding/screen/search/restaurant_search_page.dart';
 import 'package:resto_app_dicoding/style/theme/restaurants_theme.dart';
 
 void main() {
@@ -22,6 +24,12 @@ void main() {
         ),
         ChangeNotifierProvider(
           create: (context) => RestaurantDetailProvider(
+            repository: RestaurantRepository(apiService: ApiService()),
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => RestaurantSearchProvider
+          (
             repository: RestaurantRepository(apiService: ApiService()),
           ),
         ),
@@ -43,7 +51,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo Again',
       theme: RestaurantsTheme.lightTheme,
       darkTheme: RestaurantsTheme.darkTheme,
-      themeMode: themeProvider.themeModa,
+      themeMode: themeProvider.themeMode,
       // home: const HomePage(),
       initialRoute: NavigationRoute.mainRoute.name,
       routes: {
@@ -51,6 +59,7 @@ class MyApp extends StatelessWidget {
         NavigationRoute.detailRoute.name: (context) => RestaurantDetailPage(
           restaurantId: ModalRoute.of(context)?.settings.arguments as String,
         ),
+        NavigationRoute.searchRoute.name: (context) => const RestaurantSearchPage(),
       },
     );
   }

@@ -14,11 +14,11 @@ class RestaurantSearchProvider extends ChangeNotifier {
   List<RestaurantItem> _result = [];
   List<RestaurantItem> get results => _result;
 
-  String _messsage = '';
-  String get message => _messsage;
+  String _message = '';
+  String get message => _message;
 
   Future<void> searchRestaurant(String query) async {
-    if(query.isEmpty){
+    if (query.isEmpty) {
       _state = ResultState.initial;
       _result = [];
       notifyListeners();
@@ -31,9 +31,12 @@ class RestaurantSearchProvider extends ChangeNotifier {
 
       _result = await repository.searchRestaurant(query);
       _state = ResultState.success;
-    } catch (e) {
+    } on Failure catch (e) {
       _state = ResultState.error;
-      _messsage = e.toString();
+      _message = e.message; 
+    // } catch (_) {
+    //   _state = ResultState.error;
+    //   _message = 'Terjadi kesalahan tidak terduga';
     } finally {
       notifyListeners();
     }

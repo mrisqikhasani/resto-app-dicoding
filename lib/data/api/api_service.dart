@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:resto_app_dicoding/data/models/response/restaurant_detail_response.dart';
 import 'package:resto_app_dicoding/data/models/response/restaurant_list_response.dart';
+import 'package:resto_app_dicoding/data/models/response/restaurant_list_search_response.dart';
 import 'package:resto_app_dicoding/data/models/response/review_restaurant_response.dart';
 
 class ApiException implements Exception {
@@ -29,11 +30,11 @@ class ApiService {
     return RestaurantDetailResponse.fromJson(jsonDecode(response.body));
   }
 
-  Future<RestaurantListResponse> searchRestaurant(String query) async {
+  Future<RestaurantListSearchResponse> searchRestaurant(String query) async {
     final response =
         await client.get(Uri.parse('$_baseUrl/search?q=$query'));
     _validateResponse(response);
-    return RestaurantListResponse.fromJson(jsonDecode(response.body));
+    return RestaurantListSearchResponse.fromJson(jsonDecode(response.body));
   }
 
   Future<ReviewRestaurantResponse> addReview({

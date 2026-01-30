@@ -15,6 +15,12 @@ class RestaurantsTheme {
     textTheme: RestaurantTextStyle.textTheme,
 
     scaffoldBackgroundColor: RestaurantColor.backgroundLight,
+
+    appBarTheme: const AppBarTheme(
+      elevation: 0,
+      backgroundColor: RestaurantColor.primary,
+      foregroundColor: Colors.white,
+    ),
   );
 
   static ThemeData darkTheme = ThemeData(
@@ -29,5 +35,10 @@ class RestaurantsTheme {
     textTheme: RestaurantTextStyle.textTheme,
 
     scaffoldBackgroundColor: RestaurantColor.backgroundDark,
+    appBarTheme: const AppBarTheme(
+      elevation: 0,
+      backgroundColor: Colors.black,
+      foregroundColor: Colors.white,
+    ),
   );
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:resto_app_dicoding/data/models/restaurant_item_model.dart';
 import 'package:resto_app_dicoding/style/restaurant_color.dart';
-import 'package:resto_app_dicoding/style/typography/restaurant_text_style.dart';
 import 'package:resto_app_dicoding/utils/image_helper.dart';
 
 class RestaurantCard extends StatelessWidget {
@@ -37,7 +36,7 @@ class RestaurantCard extends StatelessWidget {
                   child: Image.network(
                     ImageHelper.small(restaurant.pictureId),
                     fit: BoxFit.cover,
-                    errorBuilder: (_, __, ___) => Container(
+                    errorBuilder: (context, error, stackTrace) => Container(
                       color: RestaurantColor.primary.withValues(alpha: 0.2),
                       child: const Icon(Icons.broken_image),
                     ),

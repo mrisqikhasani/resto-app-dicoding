@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:resto_app_dicoding/style/restaurant_color.dart';
-import 'package:resto_app_dicoding/style/typography/restaurant_text_style.dart';
 
 class RestaurantHomeHeader extends StatelessWidget {
   const RestaurantHomeHeader({super.key});
@@ -18,14 +17,15 @@ class RestaurantHomeHeader extends StatelessWidget {
               const SizedBox(width: 8),
               Text(
                 'Restaurant',
-                style: RestaurantTextStyle.headlineLarge,
+                style: Theme.of(context).textTheme.headlineSmall,
+                // style: RestaurantTextStyle.headlineLarge,
               ),
             ],
           ),
           const SizedBox(height: 6),
           Text(
             'Find your favorite meals today',
-            style: RestaurantTextStyle.bodyLarge,
+            style: Theme.of(context).textTheme.bodyLarge,
           ),
         ],
       ),

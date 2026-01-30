@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:resto_app_dicoding/core/navigation/navigation_route.dart';
 import 'package:resto_app_dicoding/data/api/api_service.dart';
 import 'package:resto_app_dicoding/data/repositories/restaurant_repository.dart';
+import 'package:resto_app_dicoding/provider/detail/add_review_provider.dart';
 import 'package:resto_app_dicoding/provider/detail/restaurant_detail_provider.dart';
 import 'package:resto_app_dicoding/provider/home/restaurant_list_provider.dart';
 import 'package:resto_app_dicoding/provider/search/restaurant_search_provider.dart';
@@ -33,6 +34,9 @@ void main() {
             repository: RestaurantRepository(apiService: ApiService()),
           ),
         ),
+        ChangeNotifierProvider(create: (context) => AddReviewProvider(
+          repository: RestaurantRepository(apiService: ApiService()),
+        )),
       ],
       child: const MyApp(),
     ),

@@ -5,9 +5,9 @@ import 'package:resto_app_dicoding/provider/detail/restaurant_detail_provider.da
 import 'package:resto_app_dicoding/screen/detail/widgets/restaurant_description_section.dart';
 import 'package:resto_app_dicoding/screen/detail/widgets/restaurant_info_section.dart';
 import 'package:resto_app_dicoding/screen/detail/widgets/restaurant_menu_section.dart';
+import 'package:resto_app_dicoding/screen/detail/widgets/restaurant_review_section.dart';
 import 'package:resto_app_dicoding/screen/widgets/error_state_widget.dart';
 import 'package:resto_app_dicoding/style/restaurant_color.dart';
-import 'package:resto_app_dicoding/style/typography/restaurant_text_style.dart';
 import 'package:resto_app_dicoding/utils/image_helper.dart';
 
 class RestaurantDetailPage extends StatefulWidget {
@@ -23,11 +23,9 @@ class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
   @override
   void initState() {
     super.initState();
-
     Future.microtask(() {
-      context.read<RestaurantDetailProvider>().fetchRestaurantDetail(
-        widget.restaurantId,
-      );
+      context.read<RestaurantDetailProvider>()
+          .fetchRestaurantDetail(widget.restaurantId);
     });
   }
 
@@ -39,27 +37,23 @@ class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
           switch (value.state) {
             case ResultState.loading:
               return const Center(child: CircularProgressIndicator());
+
             case ResultState.error:
               return ErrorStateWidget(
                 message: value.message,
-                onRetry: () => value.fetchRestaurantDetail(widget.restaurantId),
+                onRetry: () =>
+                    value.fetchRestaurantDetail(widget.restaurantId),
               );
+
             case ResultState.success:
-              final restaurant = value.restaurant;
+              final restaurant = value.restaurant!;
               return CustomScrollView(
                 slivers: [
-                  /// APP BAR IMAGE
                   SliverAppBar(
                     pinned: true,
                     expandedHeight: 260,
                     backgroundColor: RestaurantColor.primary,
                     flexibleSpace: FlexibleSpaceBar(
-                      title: Text(
-                        restaurant!.name,
-                        style: RestaurantTextStyle.titleMedium.copyWith(
-                          color: Colors.white,
-                        ),
-                      ),
                       background: Hero(
                         tag: restaurant.pictureId,
                         child: Image.network(
@@ -73,28 +67,46 @@ class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
                   /// CONTENT
                   SliverToBoxAdapter(
                     child: Padding(
-                      padding: const EdgeInsets.all(16),
+                      padding: const EdgeInsets.fromLTRB(16, 20, 16, 24),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          Text(
+                            restaurant.name,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineLarge
+                          ),
+
+                          const SizedBox(height: 8),
+
                           RestaurantInfoSection(restaurant: restaurant),
-                          const SizedBox(height: 16),
-                          RestaurantDescriptionSection(restaurant: restaurant),
-                          const SizedBox(height: 24),
+
+                          const SizedBox(height: 20),
+
+                          RestaurantDescriptionSection(
+                              restaurant: restaurant),
+
+                          const SizedBox(height: 28),
+
                           RestaurantMenuSection(
                             foods: restaurant.menus.foods,
                             drinks: restaurant.menus.drinks,
                           ),
-                          const SizedBox(height: 24),
-                          // _ReviewSection(
-                          //   reviews: restaurant.customerReviews,
-                          // ),
+
+                          const SizedBox(height: 32),
+
+                          RestaurantReviewSection(
+                            restaurantId: restaurant.id,
+                            reviews: restaurant.customerReviews,
+                          ),
                         ],
                       ),
                     ),
                   ),
                 ],
               );
+
             default:
               return const SizedBox();
           }

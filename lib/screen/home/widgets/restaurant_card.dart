@@ -58,7 +58,7 @@ class RestaurantCard extends StatelessWidget {
                     restaurant.name,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: RestaurantTextStyle.titleMedium,
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
 
                   const SizedBox(height: 6),
@@ -72,7 +72,7 @@ class RestaurantCard extends StatelessWidget {
                           restaurant.city,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: RestaurantTextStyle.bodyMedium,
+                          style: Theme.of(context).textTheme.bodyMedium,
                         ),
                       ),
                     ],
@@ -91,7 +91,7 @@ class RestaurantCard extends StatelessWidget {
                       const SizedBox(width: 4),
                       Text(
                         restaurant.rating.toStringAsFixed(1),
-                        style: RestaurantTextStyle.bodyMedium,
+                        style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     ],
                   ),

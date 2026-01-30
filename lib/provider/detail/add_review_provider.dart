@@ -36,7 +36,7 @@ class AddReviewProvider extends ChangeNotifier {
     } on Failure catch (e) {
       _state = ResultState.error;
       _message = e.message;
-    } finally {
+    } finally { 
       notifyListeners();
     }
   }

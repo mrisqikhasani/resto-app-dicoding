@@ -24,8 +24,9 @@ class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
   void initState() {
     super.initState();
     Future.microtask(() {
-      context.read<RestaurantDetailProvider>()
-          .fetchRestaurantDetail(widget.restaurantId);
+      context.read<RestaurantDetailProvider>().fetchRestaurantDetail(
+        widget.restaurantId,
+      );
     });
   }
 
@@ -41,8 +42,7 @@ class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
             case ResultState.error:
               return ErrorStateWidget(
                 message: value.message,
-                onRetry: () =>
-                    value.fetchRestaurantDetail(widget.restaurantId),
+                onRetry: () => value.fetchRestaurantDetail(widget.restaurantId),
               );
 
             case ResultState.success:
@@ -73,9 +73,7 @@ class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
                         children: [
                           Text(
                             restaurant.name,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineLarge
+                            style: Theme.of(context).textTheme.headlineLarge,
                           ),
 
                           const SizedBox(height: 8),
@@ -84,8 +82,7 @@ class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
 
                           const SizedBox(height: 20),
 
-                          RestaurantDescriptionSection(
-                              restaurant: restaurant),
+                          RestaurantDescriptionSection(restaurant: restaurant),
 
                           const SizedBox(height: 28),
 

@@ -13,7 +13,10 @@ class RestaurantDescriptionSection extends StatelessWidget {
       children: [
         Text('Description', style: Theme.of(context).textTheme.headlineMedium),
         const SizedBox(height: 8),
-        Text(restaurant.description, style: Theme.of(context).textTheme.bodyMedium),
+        Text(
+          restaurant.description,
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
       ],
     );
   }

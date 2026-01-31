@@ -33,10 +33,10 @@ class RestaurantSearchProvider extends ChangeNotifier {
       _state = ResultState.success;
     } on Failure catch (e) {
       _state = ResultState.error;
-      _message = e.message; 
-    // } catch (_) {
-    //   _state = ResultState.error;
-    //   _message = 'Terjadi kesalahan tidak terduga';
+      _message = e.message;
+      // } catch (_) {
+      //   _state = ResultState.error;
+      //   _message = 'Terjadi kesalahan tidak terduga';
     } finally {
       notifyListeners();
     }

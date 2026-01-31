@@ -22,10 +22,7 @@ class RestaurantReviewSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         /// TITLE
-        Text(
-          'Customer Reviews',
-          style: textTheme.titleLarge,
-        ),
+        Text('Customer Reviews', style: textTheme.titleLarge),
 
         const SizedBox(height: 12),
 
@@ -50,9 +47,7 @@ class RestaurantReviewSection extends StatelessWidget {
         const SizedBox(height: 16),
 
         /// ADD REVIEW FORM
-        AddReviewForm(
-          restaurantId: restaurantId,
-        ),
+        AddReviewForm(restaurantId: restaurantId),
       ],
     );
   }

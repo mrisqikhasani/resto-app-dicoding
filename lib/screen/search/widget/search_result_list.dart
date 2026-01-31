@@ -18,7 +18,7 @@ class SearchResultList extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
 
           case ResultState.error:
-            debugPrint("adds on value ${value.message}"); 
+            debugPrint("adds on value ${value.message}");
             return Center(child: Text(value.message));
 
           case ResultState.success:
@@ -41,9 +41,7 @@ class SearchResultList extends StatelessWidget {
             );
 
           default:
-            return const Center(
-              child: Text('Cari restoran favoritmu'),
-            );
+            return const Center(child: Text('Cari restoran favoritmu'));
         }
       },
     );

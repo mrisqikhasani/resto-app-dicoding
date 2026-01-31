@@ -29,14 +29,15 @@ void main() {
           ),
         ),
         ChangeNotifierProvider(
-          create: (context) => RestaurantSearchProvider
-          (
+          create: (context) => RestaurantSearchProvider(
             repository: RestaurantRepository(apiService: ApiService()),
           ),
         ),
-        ChangeNotifierProvider(create: (context) => AddReviewProvider(
-          repository: RestaurantRepository(apiService: ApiService()),
-        )),
+        ChangeNotifierProvider(
+          create: (context) => AddReviewProvider(
+            repository: RestaurantRepository(apiService: ApiService()),
+          ),
+        ),
       ],
       child: const MyApp(),
     ),
@@ -63,7 +64,8 @@ class MyApp extends StatelessWidget {
         NavigationRoute.detailRoute.name: (context) => RestaurantDetailPage(
           restaurantId: ModalRoute.of(context)?.settings.arguments as String,
         ),
-        NavigationRoute.searchRoute.name: (context) => const RestaurantSearchPage(),
+        NavigationRoute.searchRoute.name: (context) =>
+            const RestaurantSearchPage(),
       },
     );
   }

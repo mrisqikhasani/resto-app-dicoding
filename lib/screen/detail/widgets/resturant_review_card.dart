@@ -4,10 +4,7 @@ import 'package:resto_app_dicoding/data/models/review_model.dart';
 class ReviewCard extends StatelessWidget {
   final Review review;
 
-  const ReviewCard({
-    super.key,
-    required this.review,
-  });
+  const ReviewCard({super.key, required this.review});
 
   @override
   Widget build(BuildContext context) {
@@ -29,26 +26,15 @@ class ReviewCard extends StatelessWidget {
           /// NAME + DATE
           Row(
             children: [
-              Expanded(
-                child: Text(
-                  review.name,
-                  style: textTheme.titleMedium,
-                ),
-              ),
-              Text(
-                review.date,
-                style: textTheme.bodySmall,
-              ),
+              Expanded(child: Text(review.name, style: textTheme.titleMedium)),
+              Text(review.date, style: textTheme.bodySmall),
             ],
           ),
 
           const SizedBox(height: 8),
 
           /// REVIEW TEXT
-          Text(
-            review.review,
-            style: textTheme.bodyMedium,
-          ),
+          Text(review.review, style: textTheme.bodyMedium),
         ],
       ),
     );

@@ -8,9 +8,7 @@ class RestaurantSearchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Search Restaurant'),
-      ),
+      appBar: AppBar(title: const Text('Search Restaurant')),
       body: Column(
         children: const [
           SearchTextFieldWidget(),

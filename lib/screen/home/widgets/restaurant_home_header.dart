@@ -13,7 +13,11 @@ class RestaurantHomeHeader extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Icon(Icons.restaurant_menu, size: 30, color: RestaurantColor.primary,),
+              const Icon(
+                Icons.restaurant_menu,
+                size: 30,
+                color: RestaurantColor.primary,
+              ),
               const SizedBox(width: 8),
               Text(
                 'Restaurant',

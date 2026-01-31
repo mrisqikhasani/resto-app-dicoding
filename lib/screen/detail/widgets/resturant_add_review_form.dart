@@ -41,7 +41,9 @@ class _AddReviewFormState extends State<AddReviewForm> {
             _nameController.clear();
             _reviewController.clear();
 
-            context.read<RestaurantDetailProvider>().fetchRestaurantDetail(widget.restaurantId);
+            context.read<RestaurantDetailProvider>().fetchRestaurantDetail(
+              widget.restaurantId,
+            );
 
             provider.reset();
           });

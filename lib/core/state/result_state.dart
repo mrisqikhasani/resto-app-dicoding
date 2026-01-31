@@ -1,6 +1,1 @@
-enum ResultState {
-  initial,
-  loading,
-  success,
-  error,
-}
+enum ResultState { initial, loading, success, error }

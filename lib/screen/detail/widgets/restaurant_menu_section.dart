@@ -22,9 +22,7 @@ class RestaurantMenuSection extends StatelessWidget {
       children: [
         Text(
           'Menu',
-          style: textTheme.titleLarge?.copyWith(
-            fontWeight: FontWeight.bold,
-          ),
+          style: textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
         ),
 
         const SizedBox(height: 16),
@@ -71,10 +69,7 @@ class _MenuGroup extends StatelessWidget {
           children: [
             Icon(icon, size: 20, color: RestaurantColor.primary),
             const SizedBox(width: 6),
-            Text(
-              title,
-              style: textTheme.titleMedium,
-            ),
+            Text(title, style: textTheme.titleMedium),
           ],
         ),
 
@@ -87,8 +82,9 @@ class _MenuGroup extends StatelessWidget {
               .map(
                 (item) => Chip(
                   label: Text(item),
-                  backgroundColor:
-                      RestaurantColor.accent.withValues(alpha: 0.15),
+                  backgroundColor: RestaurantColor.accent.withValues(
+                    alpha: 0.15,
+                  ),
                 ),
               )
               .toList(),

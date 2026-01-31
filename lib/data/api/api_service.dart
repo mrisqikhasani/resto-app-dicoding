@@ -31,8 +31,7 @@ class ApiService {
   }
 
   Future<RestaurantListSearchResponse> searchRestaurant(String query) async {
-    final response =
-        await client.get(Uri.parse('$_baseUrl/search?q=$query'));
+    final response = await client.get(Uri.parse('$_baseUrl/search?q=$query'));
     _validateResponse(response);
     return RestaurantListSearchResponse.fromJson(jsonDecode(response.body));
   }
@@ -45,11 +44,7 @@ class ApiService {
     final response = await client.post(
       Uri.parse('$_baseUrl/review'),
       headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({
-        'id': id,
-        'name': name,
-        'review': review,
-      }),
+      body: jsonEncode({'id': id, 'name': name, 'review': review}),
     );
 
     _validateResponse(response);
@@ -60,9 +55,6 @@ class ApiService {
     if (response.statusCode >= 200 && response.statusCode < 300) return;
 
     final body = jsonDecode(response.body);
-    throw ApiException(
-      response.statusCode,
-      body['message'] ?? 'Unknown error',
-    );
+    throw ApiException(response.statusCode, body['message'] ?? 'Unknown error');
   }
 }

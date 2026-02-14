@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:resto_app_dicoding/core/state/result_state.dart';
+import 'package:resto_app_dicoding/provider/bookmark/bookmark_icon_provider.dart';
 import 'package:resto_app_dicoding/provider/detail/restaurant_detail_provider.dart';
 import 'package:resto_app_dicoding/screen/detail/widgets/restaurant_description_section.dart';
+import 'package:resto_app_dicoding/screen/detail/widgets/restaurant_icon_bookmark.dart';
 import 'package:resto_app_dicoding/screen/detail/widgets/restaurant_info_section.dart';
 import 'package:resto_app_dicoding/screen/detail/widgets/restaurant_menu_section.dart';
 import 'package:resto_app_dicoding/screen/detail/widgets/restaurant_review_section.dart';
@@ -53,6 +55,13 @@ class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
                     pinned: true,
                     expandedHeight: 260,
                     backgroundColor: RestaurantColor.primary,
+                    actions: [
+                      ChangeNotifierProvider(
+                        create: (context) => BookmarkIconProvider(),
+                        child: BookmartIconWidget(restaurant: restaurant.toRestaurantItem()),
+                      ),
+                    ],
+
                     flexibleSpace: FlexibleSpaceBar(
                       background: Hero(
                         tag: restaurant.pictureId,

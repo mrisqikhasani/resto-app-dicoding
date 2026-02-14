@@ -1,5 +1,6 @@
 import 'package:resto_app_dicoding/data/models/category_model.dart';
 import 'package:resto_app_dicoding/data/models/menus_model.dart';
+import 'package:resto_app_dicoding/data/models/restaurant_item_model.dart';
 import 'package:resto_app_dicoding/data/models/review_model.dart';
 
 class RestaurantDetail {
@@ -43,6 +44,17 @@ class RestaurantDetail {
       customerReviews: (json['customerReviews'] as List)
           .map((e) => Review.fromJson(e))
           .toList(),
+    );
+  }
+
+  RestaurantItem toRestaurantItem() {
+    return RestaurantItem(
+      id: id,
+      name: name,
+      description: description,
+      pictureId: pictureId,
+      city: city,
+      rating: rating,
     );
   }
 }

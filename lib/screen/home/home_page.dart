@@ -40,6 +40,8 @@ class _HomePageState extends State<HomePage> {
                 context.read<ThemeProvider>().toggleTheme();
               } else if (value == 'search') {
                 Navigator.pushNamed(context, NavigationRoute.searchRoute.name);
+              } else if(value == 'settings') {
+                Navigator.pushNamed(context, NavigationRoute.settingRoute.name);
               }
             },
             itemBuilder: (context) => [
@@ -55,6 +57,13 @@ class _HomePageState extends State<HomePage> {
                 child: ListTile(
                   leading: Icon(Icons.brightness_6),
                   title: Text('Dark / Light'),
+                ),
+              ),
+              const PopupMenuItem(
+                value: 'settings',
+                child: ListTile(
+                  leading: Icon(Icons.settings),
+                  title: Text('Settings'),
                 ),
               ),
             ],

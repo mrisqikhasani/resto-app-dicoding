@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:resto_app_dicoding/data/models/restaurant_item_model.dart';
 import 'package:resto_app_dicoding/provider/bookmark/bookmark_list_provider.dart';
+import 'package:resto_app_dicoding/style/restaurant_color.dart';
 
 class BookmartIconWidget extends StatelessWidget {
   final RestaurantItem restaurant;
@@ -23,7 +24,7 @@ class BookmartIconWidget extends StatelessWidget {
         return IconButton(
           icon: Icon(
             isBookmarked ? Icons.favorite : Icons.favorite_border,
-            color: Colors.red,
+            color: RestaurantColor.error,
           ),
           onPressed: () async {
             await bookmarkProvider.toogleBookmarks(restaurant);

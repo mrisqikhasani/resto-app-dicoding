@@ -1,32 +1,29 @@
 import 'package:flutter/widgets.dart';
 import 'package:resto_app_dicoding/data/models/restaurant_item_model.dart';
+import 'package:resto_app_dicoding/data/repositories/restaurant_repository.dart';
 
 class BookmarkListProvider extends ChangeNotifier {
-  final List<RestaurantItem> _bookmarkList = [];
+  final RestaurantRepository repository;
 
-  List<RestaurantItem> get bookmarkList => List.unmodifiable(_bookmarkList);
+  BookmarkListProvider({required this.repository});
 
-  void addBookmark(RestaurantItem restaurant) {
-    if (!isBookmarked(restaurant.id)) {
-      _bookmarkList.add(restaurant);
-      notifyListeners();
-    }
-  }
+  List<RestaurantItem> _bookmarkList = [];
+  List<RestaurantItem> get bookmarkList => _bookmarkList;
 
-  void removeBookmark(String id) {
-    _bookmarkList.removeWhere((element) => element.id == id);
+  Future<void> loadBookmark() async {
+    _bookmarkList = await repository.getBookmarkedRestaurants();
     notifyListeners();
   }
 
-  bool isBookmarked(String id) {
-    return _bookmarkList.any((element) => element.id == id);
-  }
+  Future<void> toogleBookmarks(RestaurantItem restaurant) async {
+    final isBookmarked = await repository.isBookmarked(restaurant.id);
 
-  void toggleBookmark(RestaurantItem restaurant) {
-    if (isBookmarked(restaurant.id)) {
-      removeBookmark(restaurant.id);
+    if(isBookmarked) {
+      await repository.removeBookmark(restaurant.id);
     } else {
-      addBookmark(restaurant);
+      await repository.saveBookmark(restaurant);
     }
+
+  await loadBookmark();
   }
 }

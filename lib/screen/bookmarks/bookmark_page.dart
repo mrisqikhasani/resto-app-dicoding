@@ -4,8 +4,21 @@ import 'package:resto_app_dicoding/core/navigation/navigation_route.dart';
 import 'package:resto_app_dicoding/provider/bookmark/bookmark_list_provider.dart';
 import 'package:resto_app_dicoding/screen/home/widgets/restaurant_card.dart';
 
-class BookmarkPage extends StatelessWidget {
+class BookmarkPage extends StatefulWidget {
   const BookmarkPage({super.key});
+
+  @override
+  State<BookmarkPage> createState() => _BookmarkPageState();
+}
+
+class _BookmarkPageState extends State<BookmarkPage> {
+  @override
+  void initState() {
+    Future.microtask(() {
+      context.read<BookmarkListProvider>().loadBookmark();
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

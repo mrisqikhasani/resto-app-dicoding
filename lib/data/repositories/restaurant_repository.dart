@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:resto_app_dicoding/data/api/api_service.dart';
+import 'package:resto_app_dicoding/data/local/local_databaser_service.dart';
 import 'package:resto_app_dicoding/data/models/restaurant_detail_model.dart';
 import 'package:resto_app_dicoding/data/models/restaurant_item_model.dart';
 import 'package:resto_app_dicoding/data/models/review_model.dart';
@@ -11,8 +12,12 @@ class Failure implements Exception {
 
 class RestaurantRepository {
   final ApiService apiService;
+  final LocalDatabaserService databaseServices;
 
-  RestaurantRepository({required this.apiService});
+  RestaurantRepository({
+    required this.apiService,
+    required this.databaseServices,
+  });
 
   Future<List<RestaurantItem>> getRestaurantList() async {
     try {
@@ -81,6 +86,42 @@ class RestaurantRepository {
       throw Failure('Gagal mengirim review');
     } catch (_) {
       throw Failure('Terjadi kesalahan tidak terduga');
+    }
+  }
+
+  // Bookmark section
+
+  Future<void> saveBookmark(RestaurantItem restaurant) async {
+    try {
+      await databaseServices.insertBookmark(restaurant);
+    } catch (_) {
+      throw Failure('Gagal menyimpan bookmark');
+    }
+  }
+
+  Future<void> removeBookmark(String id) async {
+    try {
+      await databaseServices.removeBookmark(id);
+    } catch (_) {
+      throw Failure('Gagal menghapus bookmark');
+    }
+  }
+
+  Future<List<RestaurantItem>> getBookmarkedRestaurants() async {
+    try {
+      final result = await databaseServices.getAllBookmarks();
+      return result;
+    } catch (_) {
+      throw Failure('Gagal mengambil daftar bookmark');
+    }
+  }
+
+  Future<bool> isBookmarked(String id) async {
+    try {
+      final result = await databaseServices.getBookmarkbyId(id);
+      return result != null;
+    } catch (_) {
+      throw Failure('Gagal mengecek status bookmark');
     }
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:resto_app_dicoding/core/navigation/navigation_route.dart';
 import 'package:resto_app_dicoding/data/api/api_service.dart';
+import 'package:resto_app_dicoding/data/local/local_databaser_service.dart';
 import 'package:resto_app_dicoding/data/repositories/restaurant_repository.dart';
 import 'package:resto_app_dicoding/provider/bookmark/bookmark_icon_provider.dart';
 import 'package:resto_app_dicoding/provider/bookmark/bookmark_list_provider.dart';
@@ -23,27 +24,46 @@ void main() {
         ChangeNotifierProvider(create: (context) => ThemeProvider()),
         ChangeNotifierProvider(
           create: (context) => RestaurantListProvider(
-            repository: RestaurantRepository(apiService: ApiService()),
+            repository: RestaurantRepository(
+              apiService: ApiService(),
+              databaseServices: LocalDatabaserService(),
+            ),
           ),
         ),
         ChangeNotifierProvider(
           create: (context) => RestaurantDetailProvider(
-            repository: RestaurantRepository(apiService: ApiService()),
+            repository: RestaurantRepository(
+              apiService: ApiService(),
+              databaseServices: LocalDatabaserService(),
+            ),
           ),
         ),
         ChangeNotifierProvider(
           create: (context) => RestaurantSearchProvider(
-            repository: RestaurantRepository(apiService: ApiService()),
+            repository: RestaurantRepository(
+              apiService: ApiService(),
+              databaseServices: LocalDatabaserService(),
+            ),
           ),
         ),
         ChangeNotifierProvider(
           create: (context) => AddReviewProvider(
-            repository: RestaurantRepository(apiService: ApiService()),
+            repository: RestaurantRepository(
+              apiService: ApiService(),
+              databaseServices: LocalDatabaserService(),
+            ),
           ),
         ),
         ChangeNotifierProvider(create: (context) => IndexNavProvider()),
         ChangeNotifierProvider(create: (context) => BookmarkIconProvider()),
-        ChangeNotifierProvider(create: (context) => BookmarkListProvider()),
+        ChangeNotifierProvider(
+          create: (context) => BookmarkListProvider(
+            repository: RestaurantRepository(
+              apiService: ApiService(),
+              databaseServices: LocalDatabaserService(),
+            ),
+          ),
+        ),
       ],
       child: const MyApp(),
     ),

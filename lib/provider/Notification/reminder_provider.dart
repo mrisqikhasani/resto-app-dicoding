@@ -1,94 +1,100 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:resto_app_dicoding/services/local_notification_services.dart';
+import 'package:resto_app_dicoding/services/workmanager_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:workmanager/workmanager.dart';
 
 class ReminderProvider extends ChangeNotifier {
+  final WorkmanagerService workmanagerService;
+
+
   static const _reminderKey = 'daily_reminder';
   static const _hourKey = 'reminder_hour';
   static const _minuteKey = 'reminder_minute';
 
-  final LocalNotificationService notificationService;
+  static const _uniqueName = 'dailyReminderTaskUnique';
+  static const _taskName = 'dailyReminderTask';
 
   bool _isOn = false;
   int _hour = 11;
   int _minute = 0;
-  int _notificationId = 1;
-  bool? _permission = false;
-  bool? get permission => _permission;
-
-  List<PendingNotificationRequest> pendingNotificationRequests = [];
 
   bool get isOn => _isOn;
   TimeOfDay get time => TimeOfDay(hour: _hour, minute: _minute);
 
-  ReminderProvider(this.notificationService) {
-    _load();
+  ReminderProvider(this.workmanagerService) {
+    // _load();
   }
 
   Future<void> toggle(bool value) async {
-    _isOn = value;
-    notifyListeners();
+  _isOn = value;
+  notifyListeners();
 
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool(_reminderKey, value);
-
-    if (value) {
-      await notificationService.scheduleDailyReminder(
-        id: _notificationId,
-        hour: _hour,
-        minute: _minute,
-      );
-    } else {
-      await notificationService.cancelNotification(_notificationId);
-    }
+  if (value) {
+    await workmanagerService.runDailyReminderTask();
+  } else {
+    await workmanagerService.cancelAllTask();
   }
+}
 
-  Future<void> updateTime(TimeOfDay newTime) async {
-    _hour = newTime.hour;
-    _minute = newTime.minute;
 
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt(_hourKey, _hour);
-    await prefs.setInt(_minuteKey, _minute);
+  // Future<void> updateTime(TimeOfDay newTime) async {
+  //   _hour = newTime.hour;
+  //   _minute = newTime.minute;
 
-    if (_isOn) {
-      await notificationService.scheduleDailyReminder(
-        id: _notificationId,
-        hour: _hour,
-        minute: _minute,
-      );
-    }
+  //   final prefs = await SharedPreferences.getInstance();
+  //   await prefs.setInt(_hourKey, _hour);
+  //   await prefs.setInt(_minuteKey, _minute);
 
-    notifyListeners();
-  }
+  //   if (_isOn) {
+  //     await _scheduleTask();
+  //   }
 
-  Future<void> _load() async {
-    final prefs = await SharedPreferences.getInstance();
+  //   notifyListeners();
+  // }
 
-    _isOn = prefs.getBool(_reminderKey) ?? false;
-    _hour = prefs.getInt(_hourKey) ?? 11;
-    _minute = prefs.getInt(_minuteKey) ?? 0;
+  // Future<void> _load() async {
+  //   final prefs = await SharedPreferences.getInstance();
 
-    if (_isOn) {
-      await notificationService.scheduleDailyReminder(
-        id: _notificationId,
-        hour: _hour,
-        minute: _minute,
-      );
-    }
+  //   _isOn = prefs.getBool(_reminderKey) ?? false;
+  //   _hour = prefs.getInt(_hourKey) ?? 11;
+  //   _minute = prefs.getInt(_minuteKey) ?? 0;
 
-    notifyListeners();
-  }
+  //   if (_isOn) {
+  //     await _scheduleTask();
+  //   }
 
-  Future<void> checkPendingNotificationRequests(BuildContext context) async {
-    pendingNotificationRequests = await notificationService
-        .pendingNotificationRequests();
-    notifyListeners();
-  }
+  //   notifyListeners();
+  // }
 
-  Future<void> cancel(int id) async {
-    await notificationService.cancelNotification(id);
-    // await checkPendingNotificationRequests(context);
-  }
+  // Duration _initialDelay() {
+  //   final now = DateTime.now();
+  //   var scheduled = DateTime(
+  //     now.year,
+  //     now.month,
+  //     now.day,
+  //     _hour,
+  //     _minute,
+  //   );
+
+  //   if (!scheduled.isAfter(now)) {
+  //     scheduled = scheduled.add(const Duration(days: 1));
+  //   }
+
+  //   return scheduled.difference(now);
+  // }
+
+  // Future<void> _scheduleTask() async {
+  //   final delay = _initialDelay();
+
+  //   await Workmanager().registerPeriodicTask(
+  //     _uniqueName,
+  //     _taskName,
+  //     frequency: const Duration(hours: 24),
+  //     initialDelay: delay,
+  //     existingWorkPolicy: ExistingPeriodicWorkPolicy.replace,
+  //     constraints: Constraints(
+  //       networkType: NetworkType.connected,
+  //     ),
+  //   );
+  // }
 }

@@ -18,7 +18,9 @@ import 'package:resto_app_dicoding/screen/home/main_screen.dart';
 import 'package:resto_app_dicoding/screen/search/restaurant_search_page.dart';
 import 'package:resto_app_dicoding/screen/settings/settings_page.dart';
 import 'package:resto_app_dicoding/services/local_notification_services.dart';
+import 'package:resto_app_dicoding/services/workmanager_service.dart';
 import 'package:resto_app_dicoding/style/theme/restaurants_theme.dart';
+import 'package:workmanager/workmanager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,19 +29,21 @@ void main() async {
 
   await notificationService.init();
 
+  await Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
+
   await notificationService.requestPermissions();
 
   runApp(
     MultiProvider(
       providers: [
-        /// Inject notification service (shared instance)
-        Provider<LocalNotificationService>.value(
-          value: notificationService,
-        ),
+        Provider<WorkmanagerService>(create: (_) => WorkmanagerService()),
 
-        /// Reminder Provider
+        Provider<LocalNotificationService>.value(value: notificationService),
+
         ChangeNotifierProvider(
-          create: (_) => ReminderProvider(notificationService),
+          create: (context) => ReminderProvider(
+            context.read<WorkmanagerService>(),
+          ),
         ),
 
         /// Theme
@@ -75,7 +79,6 @@ void main() async {
           ),
         ),
 
-       
         ChangeNotifierProvider(
           create: (_) => AddReviewProvider(
             repository: RestaurantRepository(
@@ -122,15 +125,11 @@ class MyApp extends StatelessWidget {
       initialRoute: NavigationRoute.mainRoute.name,
       routes: {
         NavigationRoute.mainRoute.name: (_) => const MainScreen(),
-        NavigationRoute.detailRoute.name: (context) =>
-            RestaurantDetailPage(
-              restaurantId:
-                  ModalRoute.of(context)?.settings.arguments as String,
-            ),
-        NavigationRoute.searchRoute.name: (_) =>
-            const RestaurantSearchPage(),
-        NavigationRoute.settingRoute.name: (_) =>
-            const SettingsPage(),
+        NavigationRoute.detailRoute.name: (context) => RestaurantDetailPage(
+          restaurantId: ModalRoute.of(context)?.settings.arguments as String,
+        ),
+        NavigationRoute.searchRoute.name: (_) => const RestaurantSearchPage(),
+        NavigationRoute.settingRoute.name: (_) => const SettingsPage(),
       },
     );
   }
